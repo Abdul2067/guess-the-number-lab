@@ -26,18 +26,23 @@ const game = {
   biggestNum: 100,
   smallestNum: 0,
   prevGuesses: [],
-  secretNum: 4,
+  secretNum: null,
   play: function() {
     this.secretNum = Math.floor(Math.random() * 
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;
+      do {
+        this.prevGuesses.push(this.getGuess())
+      }
+      while (this.prevGuesses[this.prevGuesses.length - 1] != this.secretNum)
     },
    getGuess(){
-      let playersGuess = parseInt( prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}`))
-      while (playersGuess > this.biggestNum || playersGuess < this.smallestNum || playersGuess > this.biggerNum + isNaN(playersGuess)) {
+      let playersGuess = parseInt( prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum},  Wrong answers: ${this.prevGuesses}`))
+      while (playersGuess > this.biggestNum || playersGuess < this.smallestNum || playersGuess > this.biggerNum + isNaN(playersGuess)) 
+      {
         playersGuess = parseInt ( prompt (`That guess is out if this world, the guess must be between ${this.biggestNum} and ${this.smallestNum}. Please guess again.`))
       }
       return playersGuess
      },
 }
 console.log(game)
-game.getGuess()
+game.play()
