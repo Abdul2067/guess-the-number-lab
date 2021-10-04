@@ -32,17 +32,30 @@ const game = {
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;
       do {
         this.prevGuesses.push(this.getGuess())
+        this.render()
       }
       while (this.prevGuesses[this.prevGuesses.length - 1] != this.secretNum)
     },
-   getGuess(){
-      let playersGuess = parseInt( prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum},  Wrong answers: ${this.prevGuesses}`))
+   
+    getGuess(){
+      let playersGuess = parseInt( prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}!`))
       while (playersGuess > this.biggestNum || playersGuess < this.smallestNum || playersGuess > this.biggerNum + isNaN(playersGuess)) 
       {
-        playersGuess = parseInt ( prompt (`That guess is out if this world, the guess must be between ${this.biggestNum} and ${this.smallestNum}. Please guess again.`))
+        playersGuess = parseInt ( prompt (`That guess is out of this world, the guess must be between ${this.biggestNum} and ${this.smallestNum}. Please guess again.`))
       }
       return playersGuess
      },
+     
+     render(){
+        if(this.prevGuesses[this.prevGuesses.length - 1] === this.secretNum) {
+        alert(`Congrats another win for Humankind! You guessed the number in ${this.prevGuesses.length - 1} guesses!`)
+       }else if(this.prevGuesses[this.prevGuesses.length - 1] > this.secretNum) {
+        alert(`This guess is too high, try again! Wrong Guesses: ${this.prevGuesses.join()}`)  
+       }else if(this.prevGuesses[this.prevGuesses.length - 1] < this.secretNum) {
+        alert(`This guess is too low, try again! Wrong Guesses: ${this.prevGuesses.join()}`)
+       }
+     }
 }
-console.log(game)
+
+
 game.play()
